@@ -68,6 +68,12 @@ header.nav.stuck{border-color:var(--purple-line);box-shadow:0 6px 24px -18px rgb
 .prose a{color:var(--purple);font-weight:700;border-bottom:2px solid var(--purple-soft);word-break:break-word;}
 .prose a:hover{border-color:var(--purple);}
 .callout{margin-top:26px;background:#fff;border:1.5px solid var(--purple-line);border-radius:20px;padding:clamp(20px,4vw,26px);box-shadow:var(--shadow-sm);}
+.prose ul.providers{margin-top:20px;gap:0;border-top:1.5px solid var(--purple-line);}
+.prose ul.providers li{display:grid;grid-template-columns:150px minmax(0,1fr);gap:20px;align-items:baseline;padding:13px 0;border-bottom:1.5px solid var(--purple-line);}
+.prose ul.providers li::before{display:none;}
+.prose ul.providers .who{font-weight:700;color:var(--ink);}
+.prose ul.providers .what{color:var(--ink-soft);}
+@media(max-width:520px){.prose ul.providers li{grid-template-columns:1fr;gap:2px;}}
 .callout h3{margin-top:0;font-size:1.1rem;}
 .callout p{color:var(--ink-soft);margin-top:6px;}
 
