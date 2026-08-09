@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Zingo — A practice app for band nerds</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@600;700;800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#FAF6FF;--ink:#1C1230;--ink-soft:#574A6B;--purple:#7C3AED;--purple-deep:#4C1D95;
+    --purple-soft:#EDE3FF;--purple-line:#D9C7F7;--marigold:#FFB627;--marigold-soft:#FFE7BC;--white:#FFFFFF;
+    --r:22px;--shadow:0 18px 50px -22px rgba(76,29,149,.45);--shadow-sm:0 8px 24px -14px rgba(76,29,149,.5);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Figtree',system-ui,sans-serif;background:var(--bg);color:var(--ink);
+    -webkit-font-smoothing:antialiased;line-height:1.55;overflow-x:hidden;}
+  h1,h2,h3,h4,.display{font-family:'Gabarito',sans-serif;line-height:1.02;letter-spacing:-.02em;font-weight:700;}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 32px;}
+  a{color:inherit;text-decoration:none;}
+  ::selection{background:var(--marigold);color:var(--ink);}
+
+  /* ---------- buttons ---------- */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:.55em;font-family:'Gabarito',sans-serif;font-weight:700;font-size:1.02rem;
+    padding:.9em 1.45em;border-radius:100px;cursor:pointer;border:none;transition:transform .18s cubic-bezier(.34,1.56,.64,1),box-shadow .18s,background .18s;text-decoration:none;white-space:nowrap;}
+  .btn-primary{background:var(--purple);color:#fff;box-shadow:var(--shadow-sm);}
+  .btn-primary:hover{transform:translateY(-3px) rotate(-1deg);box-shadow:var(--shadow);}
+  .btn-primary .arrow{transition:transform .2s;}.btn-primary:hover .arrow{transform:translateX(4px);}
+  .btn-ghost{background:transparent;color:var(--ink);border:2px solid var(--purple-line);}
+  .btn-ghost:hover{border-color:var(--purple);transform:translateY(-2px);}
+  .btn-sun{background:var(--marigold);color:var(--ink);box-shadow:0 8px 22px -10px rgba(255,182,39,.9);}
+  .btn-sun:hover{transform:translateY(-3px) rotate(1deg);}
+
+  /* ---------- nav ---------- */
+  header.nav{position:sticky;top:0;z-index:60;backdrop-filter:blur(10px);background:rgba(250,246,255,.82);border-bottom:1px solid transparent;transition:border-color .3s,box-shadow .3s;}
+  header.nav.stuck{border-color:var(--purple-line);box-shadow:0 6px 24px -18px rgba(76,29,149,.6);}
+  .nav-in{display:flex;align-items:center;justify-content:space-between;height:74px;}
+  .logo{font-family:'Gabarito';font-weight:800;font-size:1.55rem;letter-spacing:-.04em;display:flex;align-items:center;gap:.1em;}
+  .logo img{height:34px;width:auto;display:block;}
+  .logo .dot{width:11px;height:11px;border-radius:50%;background:var(--marigold);display:inline-block;margin-left:2px;margin-bottom:-2px;}
+  .nav-links{display:flex;align-items:center;gap:34px;}
+  .nav-links a.lnk{font-weight:600;font-size:1rem;color:var(--ink-soft);position:relative;white-space:nowrap;}
+  .nav-links a.lnk::after{content:"";position:absolute;left:0;bottom:-6px;height:2.5px;width:0;background:var(--purple);border-radius:2px;transition:width .22s;}
+  .nav-links a.lnk:hover{color:var(--ink);}
+  .nav-links a.lnk:hover::after{width:100%;}
+  @media(max-width:860px){.nav-links .lnk{display:none;}}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;padding:60px 0 44px;overflow:hidden;}
+  .hero-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:30px;align-items:center;}
+  .eyebrow{display:inline-flex;align-items:center;gap:.5em;background:var(--purple-soft);color:var(--purple-deep);
+    font-weight:700;font-size:.82rem;letter-spacing:.04em;text-transform:uppercase;padding:.5em 1em;border-radius:100px;white-space:nowrap;}
+  .eyebrow .pulse{width:8px;height:8px;border-radius:50%;background:var(--purple);position:relative;}
+  .eyebrow .pulse::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:2px solid var(--purple);opacity:.5;animation:pulse 2s ease-out infinite;}
+  @keyframes pulse{0%{transform:scale(.6);opacity:.6;}100%{transform:scale(1.6);opacity:0;}}
+  .hero h1{font-size:clamp(2.5rem,5.2vw,4.3rem);font-weight:800;margin:20px 0 0;}
+  .hero h1 .hi{color:var(--purple);position:relative;white-space:nowrap;}
+  .hero h1 .hi svg{position:absolute;left:-2%;bottom:-12px;width:104%;height:18px;}
+  .hero p.sub{font-size:1.2rem;color:var(--ink-soft);max-width:38ch;margin:22px 0 28px;}
+
+  /* hero email capture */
+  .capture{max-width:440px;}
+  .signup{display:flex;gap:10px;flex-wrap:wrap;}
+  .signup input{flex:1;min-width:200px;padding:1em 1.25em;border-radius:100px;border:2px solid var(--purple-line);font-size:1rem;font-family:inherit;background:#fff;color:var(--ink);transition:border-color .2s,box-shadow .2s;}
+  .signup input:focus{outline:none;border-color:var(--purple);box-shadow:0 0 0 4px var(--purple-soft);}
+  .signup .btn-primary{padding:1em 1.5em;}
+  .signup-ok{display:none;align-items:center;gap:.6em;background:#E7F8EF;border:1.5px solid #9BE3BF;color:#13794a;
+    font-weight:700;padding:.95em 1.3em;border-radius:16px;font-size:1rem;}
+  .signup-ok.show{display:flex;}
+  .signup-ok .tick{width:22px;height:22px;border-radius:50%;background:#23a06b;color:#fff;display:flex;align-items:center;justify-content:center;font-size:.8rem;flex:none;}
+  .cap-meta{margin-top:14px;display:flex;align-items:center;gap:.55em;color:var(--ink-soft);font-size:.92rem;font-weight:600;flex-wrap:wrap;}
+  .cap-meta .dotsep{width:4px;height:4px;border-radius:50%;background:var(--purple-line);}
+  .cap-down{margin-top:20px;font-size:.96rem;color:var(--ink-soft);}
+  .cap-down a{color:var(--purple);font-weight:700;border-bottom:2px solid var(--purple-soft);transition:border-color .2s;}
+  .cap-down a:hover{border-color:var(--purple);}
+
+  /* character + app stage */
+  .stage{position:relative;display:flex;justify-content:center;align-items:center;min-height:560px;}
+  .blob{position:absolute;width:400px;height:400px;border-radius:46% 54% 58% 42%/52% 44% 56% 48%;
+    background:radial-gradient(circle at 35% 30%,#9B5BFF,#5B21B6);z-index:0;animation:morph 9s ease-in-out infinite;}
+  @keyframes morph{0%,100%{border-radius:46% 54% 58% 42%/52% 44% 56% 48%;}50%{border-radius:58% 42% 44% 56%/46% 56% 44% 54%;}}
+  /* hero phone placeholder */
+  .hero-phone{position:relative;z-index:1;animation:bob 6s ease-in-out infinite;}
+  .hero-phone .phone{width:272px;height:528px;animation:none;}
+  .zingo-hero{position:absolute;z-index:4;bottom:-26px;left:50%;transform:translateX(-58%);width:236px;
+    filter:drop-shadow(0 22px 24px rgba(40,12,80,.4));animation:bobz 5s ease-in-out infinite;}
+  @keyframes bob{0%,100%{transform:translateY(0) rotate(-1deg);}50%{transform:translateY(-12px) rotate(1deg);}}
+  @keyframes bobz{0%,100%{transform:translateX(-58%) translateY(0);}50%{transform:translateX(-58%) translateY(-10px);}}
+  .chip{position:absolute;z-index:3;background:#fff;border:2px solid var(--purple-line);border-radius:16px;
+    padding:.55em .85em;font-weight:700;font-size:.92rem;box-shadow:var(--shadow-sm);display:flex;align-items:center;gap:.5em;}
+  .chip.streak{top:4%;left:-4%;animation:bob 4.2s ease-in-out infinite;background:var(--marigold);border-color:#E69A00;color:var(--ink);}
+  .chip.streak .fire{font-size:1.1rem;line-height:1;}
+  .chip.nowplay{top:30%;right:-7%;animation:bob 5.4s ease-in-out infinite .6s;padding:.6em .8em;}
+  .chip.nowplay .play{width:26px;height:26px;border-radius:50%;background:var(--purple);color:#fff;display:flex;align-items:center;justify-content:center;flex:none;}
+  .chip.nowplay .play svg{width:10px;height:10px;fill:#fff;margin-left:1px;}
+  .chip.nowplay .meta{display:flex;flex-direction:column;line-height:1.15;}
+  .chip.nowplay .meta small{font-weight:600;color:var(--ink-soft);font-size:.74rem;}
+  .note-float{position:absolute;color:var(--purple-line);z-index:0;font-size:2rem;opacity:.8;}
+  .cheer-bubble{position:absolute;z-index:5;bottom:216px;left:43%;transform:translateX(-50%);
+    background:#fff;border:2px solid var(--purple-line);border-radius:16px;padding:.6em 1em;
+    font-family:'Gabarito';font-weight:800;font-size:1.02rem;color:var(--purple);white-space:nowrap;
+    box-shadow:var(--shadow-sm);animation:bobcheer 4.6s ease-in-out infinite;}
+  @keyframes bobcheer{0%,100%{transform:translate(-50%,0) rotate(-1.5deg);}50%{transform:translate(-50%,-9px) rotate(1.5deg);}}
+  .cheer-bubble span{color:var(--ink);}
+  .cheer-bubble::after{content:"";position:absolute;bottom:-9px;left:50%;margin-left:-7px;width:15px;height:15px;background:#fff;
+    border-right:2px solid var(--purple-line);border-bottom:2px solid var(--purple-line);transform:rotate(45deg);}
+  @media(max-width:860px){.hero-grid{grid-template-columns:1fr;}.stage{order:-1;min-height:500px;margin-top:8px;}.hero p.sub{max-width:none;}.capture{max-width:none;}}
+
+  /* ---------- generic section ---------- */
+  section{position:relative;}
+  .pad{padding:92px 0;}
+  .pad-sm{padding:64px 0;}
+  .center{text-align:center;}
+  .kicker{font-family:'Gabarito';font-weight:700;text-transform:uppercase;letter-spacing:.14em;font-size:.8rem;color:var(--purple);margin-bottom:14px;}
+  .sec-head{max-width:680px;}
+  .sec-head.center{margin:0 auto;}
+  .sec-head h2{font-size:clamp(2rem,4vw,3.1rem);font-weight:800;}
+  .sec-head p{font-size:1.18rem;color:var(--ink-soft);margin-top:14px;}
+
+  /* ---------- app showcase ---------- */
+  .show{background:linear-gradient(180deg,#fff,#FBF7FF);border-top:1px solid var(--purple-line);border-bottom:1px solid var(--purple-line);}
+  .show-grid{display:grid;grid-template-columns:auto 1fr;gap:64px;align-items:center;}
+  .feat-list{display:flex;flex-direction:column;gap:8px;}
+  .feat{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:start;padding:20px;border-radius:18px;border:1.5px solid transparent;transition:border-color .2s,background .2s,transform .2s;}
+  .feat:hover{border-color:var(--purple-line);background:#fff;transform:translateX(4px);}
+  .feat .fic{width:50px;height:50px;border-radius:14px;background:var(--purple-soft);display:flex;align-items:center;justify-content:center;flex:none;}
+  .feat .fic svg{width:26px;height:26px;fill:none;stroke:var(--purple);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+  .feat h3{font-size:1.28rem;font-weight:700;}
+  .feat p{color:var(--ink-soft);margin-top:4px;font-size:1.02rem;}
+  .feat .who{display:inline-block;margin-top:8px;font-size:.74rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--purple-deep);background:var(--purple-soft);border-radius:100px;padding:.28em .7em;}
+  .show-cta{margin-top:26px;display:flex;gap:14px;align-items:center;flex-wrap:wrap;}
+  .show-note{margin-top:18px;font-size:.92rem;color:var(--ink-soft);display:flex;align-items:center;gap:.6em;}
+  .show-note .hdot{width:9px;height:9px;border-radius:50%;background:var(--marigold);border:1.5px solid #E69A00;flex:none;}
+  @media(max-width:880px){.show-grid{grid-template-columns:1fr;gap:36px;}.phone-wrap{order:-1;}}
+
+  /* phone mockup */
+  .phone-wrap{display:flex;justify-content:center;position:relative;}
+  .phone-wrap .glow{position:absolute;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(124,58,237,.22),transparent 70%);z-index:0;}
+  .phone{position:relative;z-index:1;width:300px;height:610px;background:#150E28;border-radius:44px;padding:12px;box-shadow:0 40px 80px -30px rgba(40,12,80,.6),0 0 0 2px rgba(124,58,237,.15);animation:bob 6s ease-in-out infinite;}
+  .phone .screen{width:100%;height:100%;border-radius:33px;background:linear-gradient(180deg,#F3ECFF,#FBF8FF);overflow:hidden;position:relative;display:flex;flex-direction:column;}
+  .phone .screen.shot{background:#000;display:block;}
+  .phone .screen.shot img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;}
+  .phone .notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:120px;height:26px;background:#150E28;border-radius:0 0 16px 16px;z-index:5;}
+  .ph-top{padding:30px 22px 0;display:flex;align-items:center;justify-content:space-between;}
+  .ph-top .hello small{font-weight:700;color:var(--ink-soft);font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;}
+  .ph-top .hello div{font-family:'Gabarito';font-weight:800;font-size:1.2rem;color:var(--ink);margin-top:2px;}
+  .ph-streak{display:flex;align-items:center;gap:.35em;background:var(--marigold);color:var(--ink);font-weight:800;font-size:.92rem;padding:.4em .7em;border-radius:100px;border:1.5px solid #E69A00;}
+  .ph-now{margin:18px 18px 0;border-radius:22px;background:linear-gradient(145deg,#7C3AED,#4C1D95);padding:20px;color:#fff;position:relative;overflow:hidden;}
+  .ph-now .staff{position:absolute;inset:0;opacity:.16;background-image:repeating-linear-gradient(to bottom,transparent 0 13px,#fff 13px 14px);}
+  .ph-now .lab{position:relative;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#E9D9FF;}
+  .ph-now h4{position:relative;font-size:1.5rem;font-weight:800;margin-top:6px;}
+  .ph-now .meta{position:relative;font-size:.82rem;color:#E9D9FF;margin-top:2px;font-weight:600;}
+  .ph-now .ring-row{position:relative;display:flex;align-items:center;justify-content:space-between;margin-top:16px;}
+  .ph-ring{width:62px;height:62px;border-radius:50%;background:conic-gradient(var(--marigold) 0 60%,rgba(255,255,255,.22) 60% 100%);display:flex;align-items:center;justify-content:center;}
+  .ph-ring .inner{width:48px;height:48px;border-radius:50%;background:#5A23B0;display:flex;align-items:center;justify-content:center;font-family:'Gabarito';font-weight:800;font-size:.92rem;}
+  .ph-play{width:50px;height:50px;border-radius:50%;background:var(--marigold);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px -4px rgba(0,0,0,.4);}
+  .ph-play svg{width:18px;height:18px;fill:var(--ink);margin-left:2px;}
+  .ph-steps{margin:16px 18px 0;display:flex;flex-direction:column;gap:8px;}
+  .ph-step{display:flex;align-items:center;gap:11px;background:#fff;border:1.5px solid var(--purple-line);border-radius:13px;padding:10px 13px;font-weight:700;font-size:.9rem;color:var(--ink);}
+  .ph-step .box{width:21px;height:21px;border-radius:7px;flex:none;display:flex;align-items:center;justify-content:center;font-size:.7rem;}
+  .ph-step .box.done{background:#23a06b;color:#fff;}
+  .ph-step .box.now{background:var(--purple);color:#fff;}
+  .ph-step .box.todo{border:2px solid var(--purple-line);}
+  .ph-step.is-todo{color:var(--ink-soft);opacity:.7;}
+  .ph-step small{margin-left:auto;font-weight:700;color:var(--ink-soft);font-size:.76rem;}
+  .ph-xp{margin:auto 18px 22px;background:#fff;border:1.5px solid var(--purple-line);border-radius:14px;padding:12px 14px;}
+  .ph-xp .row{display:flex;align-items:center;justify-content:space-between;font-weight:800;font-size:.82rem;}
+  .ph-xp .row .lv{color:var(--purple);}
+  .ph-xp .bar{height:8px;border-radius:6px;background:var(--purple-soft);margin-top:8px;overflow:hidden;}
+  .ph-xp .bar span{display:block;height:100%;width:64%;border-radius:6px;background:linear-gradient(90deg,var(--purple),var(--marigold));}
+
+  /* ---------- value band ---------- */
+  .value{background:var(--purple-deep);color:#fff;border-radius:40px;margin:0 16px;padding:80px 8px;position:relative;overflow:hidden;}
+  .value .wrap{position:relative;z-index:2;}
+  .value h2{font-size:clamp(2rem,4vw,3.1rem);font-weight:800;max-width:18ch;margin:0 auto;}
+  .value .payoff{margin-top:26px;font-size:1.3rem;color:#E9D9FF;font-weight:600;}
+  .value .payoff b{color:var(--marigold);}
+  .staff-deco{position:absolute;inset:0;opacity:.16;background-image:repeating-linear-gradient(to bottom,transparent 0 22px,#fff 22px 23px);
+    -webkit-mask-image:linear-gradient(to bottom,transparent,#000 30%,#000 70%,transparent);mask-image:linear-gradient(to bottom,transparent,#000 30%,#000 70%,transparent);}
+  .value .peek{position:absolute;right:4%;bottom:-10px;width:142px;z-index:3;filter:drop-shadow(0 16px 20px rgba(0,0,0,.3));}
+
+  /* ---------- trust strip ---------- */
+  .trust-grid{display:grid;grid-template-columns:1fr 1fr;gap:46px;align-items:start;}
+  .trust h2{font-size:clamp(1.8rem,3.4vw,2.6rem);font-weight:800;}
+  .trust p.lead,.trust .lead p{font-size:1.08rem;color:var(--ink-soft);margin-top:14px;max-width:50ch;}
+  .trust .lead p+p{margin-top:14px;}
+  .badge-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px;}
+  .badge{background:#fff;border:1.5px solid var(--purple-line);border-radius:12px;padding:.6em .9em;font-weight:600;font-size:.92rem;color:var(--ink-soft);display:flex;align-items:center;gap:.5em;white-space:nowrap;}
+  .badge .b-dot{width:8px;height:8px;border-radius:50%;background:var(--purple);}
+  .cred-note{font-size:.82rem;color:var(--ink-soft);margin-top:18px;font-style:italic;}
+  .cred-card{background:#fff;border-radius:var(--r);border:1.5px solid var(--purple-line);box-shadow:var(--shadow);padding:38px;display:flex;flex-direction:column;}
+  .cred-card .card-label{font-family:'Gabarito';font-weight:700;text-transform:uppercase;letter-spacing:.14em;font-size:.8rem;color:var(--purple);margin-bottom:20px;}
+  .cred-card .card-body{font-family:'Gabarito';font-weight:700;font-size:1.4rem;line-height:1.28;color:var(--ink);letter-spacing:-.01em;}
+  .cred-card .stat-list{list-style:none;display:flex;flex-direction:column;gap:22px;}
+  .cred-card .stat{padding-left:18px;border-left:3px solid var(--purple-line);}
+  .cred-card .stat-line{font-family:'Gabarito';font-weight:800;font-size:1.5rem;line-height:1.12;color:var(--ink);letter-spacing:-.015em;}
+  .cred-card .stat-src{font-size:.82rem;line-height:1.4;color:var(--ink-soft);margin-top:8px;font-style:italic;}
+  .cred-card .card-punch{font-family:'Gabarito';font-weight:800;font-size:1.55rem;line-height:1.1;color:var(--purple);margin-top:28px;padding-top:24px;border-top:1.5px solid var(--purple-line);}
+  @media(max-width:860px){.trust-grid{grid-template-columns:1fr;gap:30px;}}
+
+  /* ---------- downloads (secondary) ---------- */
+  .dl-band{background:#fff;border:1.5px solid var(--purple-line);border-radius:32px;margin:0 16px;padding:46px 48px;}
+  .dl-in{display:grid;grid-template-columns:1fr auto;gap:36px;align-items:center;}
+  .dl-in .meanwhile{font-family:'Gabarito';font-weight:700;text-transform:uppercase;letter-spacing:.1em;font-size:.78rem;color:var(--marigold);background:var(--marigold-soft);display:inline-flex;align-items:center;padding:.4em .9em;border-radius:100px;}
+  .dl-in h2{font-size:clamp(1.7rem,3vw,2.3rem);font-weight:800;margin-top:14px;}
+  .dl-in p{color:var(--ink-soft);font-size:1.08rem;margin-top:10px;max-width:46ch;}
+  .dl-mini{display:flex;gap:14px;margin-top:4px;}
+  .mini{flex:1;min-width:0;border-radius:18px;padding:20px;color:#fff;position:relative;overflow:hidden;transition:transform .2s,box-shadow .2s;}
+  .mini:hover{transform:translateY(-5px);box-shadow:var(--shadow);}
+  .mini.pc{background:linear-gradient(150deg,#7C3AED,#4C1D95);}
+  .mini.fs{background:linear-gradient(150deg,#2B1259,#1B1230);}
+  .mini .staff{position:absolute;inset:0;opacity:.16;background-image:repeating-linear-gradient(to bottom,transparent 0 14px,#fff 14px 15px);}
+  .mini h4{position:relative;font-size:1.2rem;font-weight:800;}
+  .mini p{position:relative;color:rgba(255,255,255,.82);font-size:.9rem;margin-top:4px;}
+  .mini .go{position:relative;margin-top:14px;font-family:'Gabarito';font-weight:700;font-size:.9rem;display:inline-flex;gap:.35em;}
+  @media(max-width:760px){.dl-in{grid-template-columns:1fr;}.dl-mini{width:100%;}}
+  @media(max-width:460px){.dl-mini{flex-direction:column;}}
+
+  /* app store buttons */
+  .btn-apple{background:var(--ink);color:#fff;box-shadow:var(--shadow-sm);}
+  .btn-apple:hover{transform:translateY(-3px) rotate(-1deg);box-shadow:var(--shadow);}
+  .btn-apple svg{width:20px;height:20px;fill:currentColor;flex:none;}
+  .btn-apple .lbl{display:flex;flex-direction:column;align-items:flex-start;line-height:1.15;}
+  .btn-apple .lbl small{font-family:'Figtree';font-weight:600;font-size:.68rem;opacity:.75;letter-spacing:.04em;text-transform:uppercase;}
+  .dl-row{display:flex;gap:14px;flex-wrap:wrap;align-items:center;}
+  .wait .btn-apple{background:#fff;color:var(--ink);}
+  .wait .btn-apple:hover{background:var(--marigold);}
+
+  /* ---------- waitlist (big close) ---------- */
+  .wait{position:relative;overflow:hidden;}
+  .wait-card{background:linear-gradient(150deg,#5B21B6,#2B1259);border-radius:40px;padding:76px 60px;color:#fff;position:relative;overflow:hidden;}
+  .wait-card .staff-deco{opacity:.12;}
+  .wait-in{position:relative;z-index:2;max-width:600px;}
+  .wait .kicker{color:var(--marigold);}
+  .wait h2{font-size:clamp(2.2rem,4vw,3.2rem);font-weight:800;}
+  .wait p{color:#E9D9FF;font-size:1.18rem;margin-top:16px;max-width:46ch;}
+  .wait .signup{margin-top:28px;max-width:480px;}
+  .wait .signup input{border-color:transparent;}
+  .wait .signup input:focus{border-color:var(--marigold);box-shadow:0 0 0 4px rgba(255,182,39,.25);}
+  .wait .cap-meta{color:#CDB8F0;margin-top:16px;}
+  .wait .cap-meta .dotsep{background:rgba(255,255,255,.4);}
+  .wait .signup-ok{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.3);color:#fff;}
+  .wait .peek{position:absolute;right:4%;bottom:-12px;width:200px;z-index:1;filter:drop-shadow(0 18px 22px rgba(0,0,0,.35));}
+  @media(max-width:920px){.wait .peek{display:none;}.wait-card{padding:54px 34px;}}
+
+  /* ---------- footer ---------- */
+  footer.ft{padding:70px 0 50px;}
+  .ft-top{display:grid;grid-template-columns:1.8fr 1fr 1fr 1fr;gap:40px;border-top:2px solid var(--purple-line);padding-top:46px;}
+  .ft-col h4{font-family:'Gabarito';font-size:.85rem;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-soft);margin-bottom:14px;}
+  .ft-col a{display:block;color:var(--ink);font-weight:500;margin-bottom:9px;opacity:.8;}
+  .ft-col a:hover{opacity:1;color:var(--purple);}
+  .ft-brand{max-width:280px;}.ft-brand p{color:var(--ink-soft);margin-top:12px;font-size:.95rem;}
+  .ft-bottom{margin-top:46px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;color:var(--ink-soft);font-size:.85rem;}
+  .ft-bottom a{color:var(--ink-soft);}.ft-bottom a:hover{color:var(--purple);}
+  @media(max-width:680px){.ft-top{grid-template-columns:1fr 1fr;}}
+
+  /* reveal */
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1);}
+  .reveal.in{opacity:1;transform:none;}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;}.zingo-hero,.blob,.chip,.phone,.hero-phone{animation:none;}.cheer-bubble{animation:none;}}
+  html.embedded .reveal{opacity:1!important;transform:none!important;transition:none!important;}
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="wrap nav-in">
+    <a href="index.html" class="logo"><img src="assets/zingo-logo.png" alt="Zingo" /></a>
+    <nav class="nav-links">
+      <a class="lnk" href="#app">How it works</a>
+      <a class="lnk" href="#trust">Why Zingo</a>
+      <a class="btn btn-primary" href="#download">Download the app <span class="arrow">→</span></a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <span class="eyebrow reveal"><span class="pulse"></span> Now available on iPhone</span>
+      <h1 class="reveal">Take your playing to the <span class="hi">next level<svg viewBox="0 0 200 18" preserveAspectRatio="none"><path d="M2 12 C 50 4, 150 4, 198 11" stroke="#FFB627" stroke-width="6" fill="none" stroke-linecap="round"></path></svg></span>.</h1>
+      <p class="sub reveal">Every practice is planned for you, so you spend less time wondering what to play and more time making progress.</p>
+      <div class="capture reveal">
+        <div class="dl-row">
+          <a class="btn btn-apple" href="#download"><svg viewBox="0 0 24 24"><path d="M17.05 12.54c.02-2.3 1.88-3.4 1.96-3.45-1.07-1.57-2.73-1.78-3.32-1.81-1.41-.14-2.76.83-3.48.83-.73 0-1.83-.81-3.01-.79-1.55.02-2.98.9-3.78 2.29-1.61 2.8-.41 6.94 1.16 9.21.77 1.11 1.69 2.35 2.9 2.31 1.16-.05 1.6-.75 3.01-.75 1.4 0 1.8.75 3.02.73 1.25-.02 2.05-1.13 2.82-2.25.88-1.29 1.24-2.54 1.26-2.6-.03-.01-2.42-.93-2.44-3.69M14.86 5.5c.63-.77 1.06-1.83.94-2.9-.94.04-2.08.63-2.74 1.39-.59.68-1.1 1.77-.96 2.81 1.05.08 2.12-.53 2.76-1.3"></path></svg><span class="lbl"><small>Download on the</small>App Store</span></a>
+          <a class="btn btn-ghost" href="#app">See how it works</a>
+        </div>
+        <div class="cap-meta">Free to download <span class="dotsep"></span> iPhone &amp; iPad <span class="dotsep"></span> No ads</div>
+      </div>
+    </div>
+    <div class="stage reveal">
+      <div class="blob"></div>
+      <span class="note-float" style="top:6%;right:13%;">♪</span>
+      <span class="note-float" style="bottom:20%;left:4%;font-size:2.6rem;">♫</span>
+      <div class="hero-phone">
+        <div class="phone">
+          <div class="screen shot"><img src="assets/app-song.png" alt="The Zingo app showing sheet music for In The Hall Of The Mountain King with play-along controls" /></div>
+        </div>
+      </div>
+      <div class="chip streak"><span class="fire">🔥</span> 7-day streak</div>
+      <div class="cheer-bubble">ZINGO! <span>You nailed it!</span></div>
+      <img class="zingo-hero" src="assets/zingo-conductor.png" alt="Professor Zingo, conducting with a baton" />
+    </div>
+  </div>
+</section>
+
+<!-- APP SHOWCASE -->
+<section class="show pad" id="app">
+  <div class="wrap">
+    <div class="sec-head center reveal" style="margin-bottom:54px;">
+      <div class="kicker">How it works</div>
+      <h2>Structured practice, built for you.</h2>
+      <p>Tell Zingo how much time you have. It builds a complete session: warmup, technique, songs, cooldown.</p>
+    </div>
+    <div class="show-grid">
+      <div class="phone-wrap reveal">
+        <div class="glow"></div>
+        <div class="phone">
+          <div class="screen shot"><img src="assets/app-plan.png" alt="The Zingo app showing Today's plan: a 25-minute session mapped into warmup, technique and song segments" /></div>
+        </div>
+      </div>
+      <div class="feat-list">
+        <div class="feat reveal">
+          <div class="fic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="5"></circle><circle cx="12" cy="12" r="1"></circle></svg></div>
+          <div><h3>Good practice is a skill. Zingo teaches it.</h3><p>Every session follows the structure used by great players. Do it daily and feel yourself improve.</p></div>
+        </div>
+        <div class="feat reveal">
+          <div class="fic"><svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg></div>
+          <div><h3>1,500+ songs and exercises. Expert-built.</h3><p>Nine levels, built for wind and brass players. For beginners to advanced players.</p></div>
+        </div>
+        <div class="feat reveal">
+          <div class="fic"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg></div>
+          <div><h3>Meet Professor Zingo, your personal practice coach.</h3><p>Tips, encouragement, and the occasional wild idea. You're never practicing alone.</p></div>
+        </div>
+        <div class="feat reveal">
+          <div class="fic"><svg viewBox="0 0 24 24"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path></svg></div>
+          <div><h3>Practice five days in a row? That's a ZINGO.</h3><p>Streaks turn practice into a habit, and habits into progress.</p></div>
+        </div>
+        <div class="feat reveal">
+          <div class="fic"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"></circle><path d="M3.5 19a5.5 5.5 0 0 1 11 0"></path><path d="M16 5.5a3 3 0 0 1 0 5.4"></path><path d="M17.5 13.6a5 5 0 0 1 3 4.4"></path></svg></div>
+          <div><h3>Post your wins. Friends cheer you on.</h3><p>Share a clip of your practice and hear from your friends.</p></div>
+        </div>
+        <div class="show-cta reveal">
+          <a href="#download" class="btn btn-primary">Download the app <span class="arrow">→</span></a>
+          <a href="#trust" class="btn btn-ghost">Why we built it</a>
+        </div>
+        <div class="show-note reveal"><span class="hdot"></span> In active development · trumpet &amp; trombone first, more sections on the way</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUE -->
+<section class="pad" id="value">
+  <div class="value reveal">
+    <div class="staff-deco"></div>
+    <div class="wrap center">
+      <div class="kicker" style="color:var(--marigold)">Why Zingo</div>
+      <h2>We tossed out the tired old method books and made learning an instrument exciting again.</h2>
+      <p class="payoff">Creating a whole new generation of <b>band nerds.</b></p>
+    </div>
+    <img class="peek" src="assets/zingo-conductor.png" alt="" aria-hidden="true" />
+  </div>
+</section>
+
+<!-- TRUST -->
+<section class="pad-sm trust" id="trust">
+  <div class="wrap trust-grid">
+    <div class="reveal">
+      <div class="kicker">The people behind it</div>
+      <h2>Built by musicians.</h2>
+      <div class="lead">
+        <p>Zingo was founded by a music educator and a software engineer who believed students stick with music when practice feels engaging and rewarding.</p>
+        <p>Our music founder is a Juilliard-trained educator who has worked in classrooms across the U.S. and abroad, and with the education departments of Carnegie Hall and the New York Philharmonic. He saw the same pattern everywhere: students left rehearsal motivated, but unsure how to practice on their own.</p>
+        <p>So he partnered with a software engineer and former startup founder who knew how to turn ideas into products. Together, they built Zingo to keep students playing.</p>
+      </div>
+      <div class="badge-row">
+        <span class="badge"><span class="b-dot"></span> Juilliard</span>
+        <span class="badge"><span class="b-dot"></span> Carnegie Hall</span>
+        <span class="badge"><span class="b-dot"></span> New York Philharmonic</span>
+      </div>
+      <p class="cred-note">Institutional names reflect the founders' personal backgrounds, not endorsement or partnership.</p>
+    </div>
+    <div class="cred-card reveal">
+      <div class="card-label">Why we built it</div>
+      <ul class="stat-list">
+        <li class="stat">
+          <p class="stat-line">1 in 4 beginners quits in the first year.</p>
+          <p class="stat-src">Klinedinst, Journal of Research in Music Education</p>
+        </li>
+        <li class="stat">
+          <p class="stat-line">The #1 teacher-cited reason kids quit: they won't practice.</p>
+          <p class="stat-src">Gamin, Contributions to Music Education</p>
+        </li>
+      </ul>
+      <p class="card-punch">We built Zingo to change that.</p>
+    </div>
+  </div>
+</section>
+
+<!-- DOWNLOAD -->
+<section class="pad wait" id="download">
+  <div class="wrap">
+    <div class="wait-card reveal">
+      <div class="staff-deco"></div>
+      <div class="wait-in">
+        <div class="kicker">Download Zingo</div>
+        <h2>Pick up your instrument. We'll handle the rest.</h2>
+        <p>Download Zingo and start practicing today, whether you're a student building a habit or a director bringing it to your band.</p>
+        <div class="dl-row" style="margin-top:28px;">
+          <a class="btn btn-apple" data-appstore href="#" aria-label="Download on the App Store (link coming soon)"><svg viewBox="0 0 24 24"><path d="M17.05 12.54c.02-2.3 1.88-3.4 1.96-3.45-1.07-1.57-2.73-1.78-3.32-1.81-1.41-.14-2.76.83-3.48.83-.73 0-1.83-.81-3.01-.79-1.55.02-2.98.9-3.78 2.29-1.61 2.8-.41 6.94 1.16 9.21.77 1.11 1.69 2.35 2.9 2.31 1.16-.05 1.6-.75 3.01-.75 1.4 0 1.8.75 3.02.73 1.25-.02 2.05-1.13 2.82-2.25.88-1.29 1.24-2.54 1.26-2.6-.03-.01-2.42-.93-2.44-3.69M14.86 5.5c.63-.77 1.06-1.83.94-2.9-.94.04-2.08.63-2.74 1.39-.59.68-1.1 1.77-.96 2.81 1.05.08 2.12-.53 2.76-1.3"></path></svg><span class="lbl"><small>Download on the</small>App Store</span></a>
+        </div>
+        <div class="cap-meta">Free to download <span class="dotsep"></span> iPhone &amp; iPad <span class="dotsep"></span> No ads</div>
+      </div>
+      <img class="peek" src="assets/zingo-conductor.png" alt="" aria-hidden="true" />
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="ft">
+  <div class="wrap">
+    <div class="ft-top">
+      <div class="ft-brand">
+        <a href="index.html" class="logo"><img src="assets/zingo-logo.png" alt="Zingo" /></a>
+      </div>
+      <div class="ft-col"><h4>Product</h4><a href="#app">How it works</a><a href="#download">Download the app</a><a href="#trust">Why Zingo</a></div>
+      <div class="ft-col"><h4>Support</h4><a href="support.html">Help &amp; support</a><a href="privacy.html">Privacy policy</a></div>
+      <div class="ft-col"><h4>Connect</h4><a href="mailto:hello@zingomusic.com">Contact us</a><a href="https://www.tiktok.com/@zingomusic">TikTok @zingomusic</a></div>
+    </div>
+    <div class="ft-bottom">
+      <span>© 2026 Zingo. Made for band nerds, by band nerds.</span>
+      <span><a href="privacy.html">Privacy</a> · <a href="support.html">Support</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  if(window.self!==window.top)document.documentElement.classList.add('embedded');
+  const nav=document.getElementById('nav');
+  addEventListener('scroll',()=>nav.classList.toggle('stuck',scrollY>10));
+  const revs=[...document.querySelectorAll('.reveal')];
+  revs.forEach((el,i)=>el.style.transitionDelay=(i%3)*70+'ms');
+  function checkReveal(){
+    const h=innerHeight||document.documentElement.clientHeight;
+    for(const el of revs){
+      if(el.classList.contains('in'))continue;
+      if(el.getBoundingClientRect().top < h*0.9) el.classList.add('in');
+    }
+  }
+  addEventListener('scroll',checkReveal,{passive:true});
+  addEventListener('resize',checkReveal);
+  addEventListener('load',checkReveal);
+  checkReveal();
+  // App Store link placeholder — swap the href on [data-appstore] when the URL exists, then delete this block
+  document.querySelectorAll('[data-appstore]').forEach(function(a){
+    a.addEventListener('click',function(e){
+      if(a.getAttribute('href')==='#')e.preventDefault();
+    });
+  });
+</script>
+</body>
+</html>
