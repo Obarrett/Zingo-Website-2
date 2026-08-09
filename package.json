@@ -1,0 +1,6 @@
+{
+  "name": "zingo-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Zingo marketing site — static HTML, no build step."
+}
