@@ -2,5 +2,8 @@
   "name": "zingo-website",
   "version": "1.0.0",
   "private": true,
-  "description": "Zingo marketing site — static HTML, no build step."
+  "description": "Zingo marketing site — static HTML, no build step.",
+  "scripts": {
+    "dev": "python3 -m http.server 3000"
+  }
 }
