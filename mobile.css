@@ -80,9 +80,18 @@
     padding-bottom: 0 !important;
   }
 
+  .home-page #top .hero-grid > div:first-child > h1 {
+    text-align: center !important;
+  }
+
   .home-page #top .hero-grid > div:first-child > p {
     font-size: 18px !important;
     line-height: 1.5 !important;
+    text-align: left !important;
+  }
+
+  .home-page #top .hero-grid > div:first-child > div[style*="display:flex"] {
+    justify-content: center !important;
   }
 
   .home-page #top .hero-art {
@@ -184,7 +193,9 @@
   }
 
   .home-page #how .wrap:first-child > p {
+    align-self: stretch !important;
     font-size: 18px !important;
+    text-align: left !important;
   }
 
   .home-page #how .wrap.three {
