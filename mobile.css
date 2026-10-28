@@ -1,0 +1,458 @@
+@media (max-width: 600px) {
+  .nav .links {
+    display: flex !important;
+    gap: 8px !important;
+    min-width: 0;
+  }
+
+  .nav .links > .link {
+    display: none !important;
+  }
+
+  .nav .links > .btn-purple {
+    min-height: 40px !important;
+    gap: 6px !important;
+    padding: 10px 14px !important;
+    font-size: 13px !important;
+    white-space: nowrap;
+  }
+
+  .nav .links > .btn-purple svg {
+    width: 14px !important;
+    height: 14px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .wrap {
+    padding-right: 20px !important;
+    padding-left: 20px !important;
+  }
+
+  .nav {
+    gap: 8px !important;
+    padding-top: 14px !important;
+    padding-bottom: 14px !important;
+  }
+
+  .nav .links > .btn-purple {
+    gap: 5px !important;
+    padding: 9px 11px !important;
+    font-size: 12px !important;
+  }
+
+  .nav .links > .btn-purple svg {
+    width: 12px !important;
+    height: 12px !important;
+  }
+
+  .bigcopy {
+    font-size: clamp(36px, 10.5vw, 46px) !important;
+    line-height: 1.04 !important;
+    letter-spacing: -0.01em !important;
+  }
+
+  .site-footer {
+    padding: 40px 0 28px !important;
+  }
+
+  .site-footer .foot {
+    gap: 22px !important;
+  }
+
+  .site-footer > .wrap:last-child {
+    margin-top: 28px !important;
+    padding-top: 18px !important;
+  }
+
+  .home-page #top {
+    padding-top: 40px !important;
+  }
+
+  .home-page #top .hero-grid {
+    align-items: start !important;
+    gap: 20px !important;
+    padding-bottom: 0 !important;
+  }
+
+  .home-page #top .hero-grid > div:first-child {
+    gap: 18px !important;
+    padding-bottom: 0 !important;
+  }
+
+  .home-page #top .hero-grid > div:first-child > p {
+    font-size: 18px !important;
+    line-height: 1.5 !important;
+  }
+
+  .home-page #top .hero-art {
+    width: 100%;
+    height: clamp(540px, 150vw, 590px) !important;
+    max-width: 100%;
+  }
+
+  .home-page #top .hero-art > img:first-of-type {
+    top: 28px !important;
+    left: 50% !important;
+    width: min(86%, 250px) !important;
+    max-width: 100%;
+    margin-left: 0 !important;
+    transform: translateX(-50%);
+  }
+
+  .home-page #top .hero-art > div {
+    top: 0 !important;
+    right: auto !important;
+    left: 50% !important;
+    gap: 8px !important;
+    padding: 10px 12px !important;
+    transform: translateX(-50%);
+    white-space: nowrap;
+  }
+
+  .home-page #top .hero-art > div span:first-child {
+    font-size: 14px !important;
+  }
+
+  .home-page #top .hero-art > div span:last-child {
+    font-size: 24px !important;
+  }
+
+  .home-page #top .hero-art > div svg {
+    width: 18px !important;
+    height: 16px !important;
+  }
+
+  .home-page #top .hero-art > img:last-of-type {
+    right: 0 !important;
+    bottom: 0 !important;
+    width: clamp(130px, 48vw, 175px) !important;
+    height: auto !important;
+    max-width: 55% !important;
+  }
+
+  .home-page #listen {
+    padding: 72px 0 !important;
+  }
+
+  .home-page #listen .wrap.two {
+    gap: 26px !important;
+  }
+
+  .home-page #listen .wrap.two > div:first-child {
+    gap: 16px !important;
+  }
+
+  .home-page #listen .wrap.two > div:first-child > p {
+    font-size: 18px !important;
+    line-height: 1.5 !important;
+  }
+
+  .home-page #listen .wrap.two > div:last-child {
+    width: 100% !important;
+    height: 600px !important;
+    min-height: 600px !important;
+  }
+
+  .home-page #listen .wrap.two > div:last-child > img {
+    top: 0 !important;
+    right: auto !important;
+    left: 50% !important;
+    width: min(74%, 210px) !important;
+    margin-left: 0 !important;
+    transform: translateX(-50%);
+  }
+
+  .home-page #listen .wrap.two > div:last-child > .card {
+    top: 248px !important;
+    right: auto !important;
+    left: 50% !important;
+    width: 100% !important;
+    max-width: 260px !important;
+    box-sizing: border-box !important;
+    gap: 10px !important;
+    padding: 18px !important;
+    transform: translateX(-50%);
+  }
+
+  .home-page #how {
+    padding: 72px 0 28px !important;
+  }
+
+  .home-page #how .wrap:first-child {
+    gap: 16px !important;
+  }
+
+  .home-page #how .wrap:first-child > p {
+    font-size: 18px !important;
+  }
+
+  .home-page #how .wrap.three {
+    gap: 32px !important;
+    margin-top: 40px !important;
+  }
+
+  .home-page #how .three > div > div:last-child {
+    width: 100%;
+    height: 560px !important;
+    margin-top: 12px !important;
+  }
+
+  .home-page #how .three > div > div:last-child img:first-of-type {
+    top: 0 !important;
+    left: 50% !important;
+    width: min(88%, 235px) !important;
+    margin-left: 0 !important;
+    transform: translateX(-50%);
+  }
+
+  .home-page #how .three > div:nth-child(1) > div:last-child img:nth-of-type(2),
+  .home-page #how .three > div:nth-child(2) > div:last-child img:nth-of-type(2) {
+    left: 50% !important;
+    width: min(100%, 260px) !important;
+    transform: translateX(-50%);
+  }
+
+  .home-page #how .three > div:nth-child(2) > div:last-child img:nth-of-type(2) {
+    top: 0 !important;
+  }
+
+  .home-page #how .three > div:nth-child(2) > div:last-child img:nth-of-type(3) {
+    right: 0 !important;
+    left: auto !important;
+    width: min(72%, 180px) !important;
+  }
+
+  .home-page #lessons {
+    padding: 64px 0 !important;
+  }
+
+  .home-page #lessons .wrap.two {
+    gap: 26px !important;
+  }
+
+  .home-page #lessons .wrap.two > div:first-child > p {
+    font-size: 18px !important;
+  }
+
+  .home-page #lessons .wrap.two > div:last-child {
+    gap: 12px !important;
+  }
+
+  .home-page #professor {
+    padding: 32px 0 64px !important;
+  }
+
+  .home-page #professor .wrap > .card {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 0 !important;
+    padding: 0 20px !important;
+  }
+
+  .home-page #professor .wrap > .card > div:first-child {
+    gap: 14px !important;
+    padding: 24px 0 0 !important;
+  }
+
+  .home-page #professor h2 {
+    font-size: clamp(30px, 9vw, 38px) !important;
+    line-height: 1.08 !important;
+  }
+
+  .home-page #professor p {
+    font-size: 17px !important;
+  }
+
+  .home-page #professor .wrap > .card > div:last-child {
+    height: 230px !important;
+  }
+
+  .home-page #professor .wrap > .card > div:last-child img {
+    bottom: -10px !important;
+    left: 50% !important;
+    height: 220px !important;
+    margin-left: 0 !important;
+    transform: translateX(-50%);
+  }
+
+  .home-page #why {
+    padding: 72px 0 !important;
+  }
+
+  .home-page #why .wrap {
+    gap: 34px !important;
+  }
+
+  .home-page #why .two {
+    gap: 16px !important;
+  }
+
+  .home-page #why .two > div {
+    padding: 24px !important;
+    border-radius: 20px !important;
+  }
+
+  .home-page #why .two > div > div:first-child {
+    font-size: clamp(32px, 9.5vw, 40px) !important;
+    line-height: 1.12 !important;
+  }
+
+  .home-page #people {
+    padding: 72px 0 !important;
+  }
+
+  .home-page #people .wrap.two {
+    gap: 28px !important;
+  }
+
+  .home-page #people h3 {
+    font-size: 36px !important;
+    line-height: 1.08 !important;
+  }
+
+  .home-page #people p {
+    font-size: 17px !important;
+    line-height: 1.55 !important;
+  }
+
+  .home-page #download {
+    padding: 72px 0 0 !important;
+  }
+
+  .home-page #download .wrap.two {
+    gap: 24px !important;
+  }
+
+  .home-page #download .wrap.two > div:first-child {
+    gap: 16px !important;
+    padding-bottom: 0 !important;
+  }
+
+  .home-page #download .wrap.two > div:first-child > p {
+    font-size: 18px !important;
+    line-height: 1.5 !important;
+  }
+
+  .home-page #download .wrap.two > div:last-child {
+    width: 100%;
+    height: 440px !important;
+    max-width: 100%;
+  }
+
+  .home-page #download .wrap.two > div:last-child img:first-of-type {
+    bottom: 0 !important;
+    left: 0 !important;
+    width: min(70%, 200px) !important;
+  }
+
+  .home-page #download .wrap.two > div:last-child img:last-of-type {
+    right: 0 !important;
+    bottom: 0 !important;
+    width: min(76%, 200px) !important;
+  }
+
+  .support-main {
+    padding: 40px 0 64px !important;
+  }
+
+  .support-main > .wrap {
+    gap: 28px !important;
+  }
+
+  .support-main > .wrap > .two {
+    gap: 24px !important;
+  }
+
+  .support-main .three > div {
+    box-sizing: border-box !important;
+    padding: 22px !important;
+    border-radius: 20px !important;
+  }
+
+  .support-main .three > div p {
+    font-size: 16px !important;
+  }
+
+  .support-main details summary {
+    gap: 12px !important;
+    font-size: 18px !important;
+    line-height: 1.3 !important;
+  }
+
+  .support-main details summary span {
+    flex: none;
+    font-size: 24px !important;
+  }
+
+  .support-callout {
+    box-sizing: border-box !important;
+    gap: 14px !important;
+    padding: 24px !important;
+    border-radius: 22px !important;
+  }
+
+  .support-callout h2 {
+    font-size: clamp(30px, 9vw, 36px) !important;
+    line-height: 1.08 !important;
+  }
+
+  .support-callout p {
+    font-size: 16px !important;
+  }
+
+  .support-callout > div {
+    gap: 10px !important;
+  }
+
+  .privacy-main {
+    padding: 40px 0 64px !important;
+  }
+
+  .privacy-main > .wrap {
+    gap: 26px !important;
+  }
+
+  .privacy-main > .wrap > div[style*="flex-wrap:wrap"] {
+    gap: 24px !important;
+    margin-top: 4px !important;
+  }
+
+  .privacy-main > .wrap > div[style*="flex-wrap:wrap"] > nav {
+    flex: 1 1 100% !important;
+  }
+
+  .privacy-main .prose > p:first-child {
+    font-size: 18px !important;
+  }
+
+  .privacy-main .prose h2 {
+    font-size: clamp(24px, 7vw, 28px) !important;
+  }
+
+  .privacy-main #providers > div[style*="grid-template-columns"] {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 10px !important;
+  }
+
+  .privacy-main #providers > div[style*="grid-template-columns"] > div {
+    box-sizing: border-box !important;
+  }
+}
+
+@media (max-width: 340px) {
+  .wrap {
+    padding-right: 16px !important;
+    padding-left: 16px !important;
+  }
+
+  .nav .links > .btn-purple {
+    padding: 8px 10px !important;
+    font-size: 11px !important;
+  }
+
+  .nav .links > .btn-purple svg {
+    display: none !important;
+  }
+}
