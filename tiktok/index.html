@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Get Zingo</title>
+  <meta name="description" content="Download Zingo, the practice companion for trumpet, trombone, flute, and clarinet.">
+  <meta property="og:title" content="Get Zingo">
+  <meta property="og:description" content="Download Zingo, the practice companion for trumpet, trombone, flute, and clarinet.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700&family=Gabarito:wght@800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #FCFBF9;
+      --charcoal: #231C33;
+      --muted: #5C586B;
+      --purple: #7C3AED;
+      --deep-purple: #3B2A63;
+      --yellow: #FFC93C;
+      --border: #D9D3E6;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      min-height: 100%;
+      margin: 0;
+    }
+
+    body {
+      min-height: 100svh;
+      overflow-x: hidden;
+      background: var(--paper);
+      color: var(--charcoal);
+      font-family: "Figtree", system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    .screen {
+      display: none;
+      width: min(100%, 440px);
+      min-height: 100svh;
+      margin: 0 auto;
+      padding: 72px 24px calc(24px + env(safe-area-inset-bottom));
+      position: relative;
+      z-index: 1;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      text-align: center;
+    }
+
+    body[data-state="inapp-ios"] .screen--inapp-ios,
+    body[data-state="android"] .screen--android,
+    body[data-state="desktop"] .screen--desktop,
+    body[data-state="safari"] .screen--safari {
+      display: flex;
+    }
+
+    .logo {
+      display: block;
+      width: 150px;
+      height: auto;
+      flex: 0 0 auto;
+      object-fit: contain;
+    }
+
+    h1,
+    p {
+      margin: 0;
+    }
+
+    .screen--inapp-ios {
+      gap: 18px;
+      padding-bottom: calc(18px + env(safe-area-inset-bottom));
+    }
+
+    .screen--inapp-ios h1 {
+      font: 800 34px/1.04 "Gabarito", sans-serif;
+      letter-spacing: -0.025em;
+    }
+
+    .screen--inapp-ios .subtitle {
+      margin-top: -6px;
+      color: var(--muted);
+      font: 600 16px/1.35 "Figtree", sans-serif;
+    }
+
+    .steps-card {
+      width: 100%;
+      padding: 32px;
+      border-radius: 24px;
+      background: var(--deep-purple);
+      text-align: left;
+    }
+
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .steps li {
+      display: grid;
+      grid-template-columns: 36px minmax(0, 1fr);
+      align-items: center;
+      gap: 16px;
+    }
+
+    .step-number {
+      color: var(--yellow);
+      font: 800 44px/1 "Gabarito", sans-serif;
+    }
+
+    .step-copy {
+      color: #fff;
+      font: 700 22px/1.24 "Figtree", sans-serif;
+    }
+
+    .step-copy mark {
+      background: transparent;
+      color: var(--yellow);
+      font: inherit;
+    }
+
+    .copy-control {
+      display: flex;
+      width: 100%;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .copy-control--pinned {
+      margin-top: auto;
+      padding-top: 12px;
+    }
+
+    .copy-link {
+      min-height: 44px;
+      padding: 10px 6px;
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      font: 600 14px/1.3 "Figtree", sans-serif;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .copy-fallback {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #fff;
+      color: var(--charcoal);
+      font: 600 14px/1.4 "Figtree", sans-serif;
+      text-align: center;
+    }
+
+    .copy-fallback[hidden] {
+      display: none !important;
+    }
+
+    .state-heading {
+      color: var(--charcoal);
+      font: 800 30px/1.08 "Gabarito", sans-serif;
+      letter-spacing: -0.02em;
+    }
+
+    .supporting-copy,
+    .small-note {
+      color: var(--muted);
+      font: 400 16px/1.45 "Figtree", sans-serif;
+    }
+
+    .primary-button {
+      display: flex;
+      width: 100%;
+      min-height: 56px;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 22px;
+      border: 0;
+      border-radius: 14px;
+      background: var(--purple);
+      color: #fff;
+      cursor: pointer;
+      font: 700 17px/1.2 "Figtree", sans-serif;
+      text-align: center;
+      text-decoration: none;
+      transition: background-color 140ms ease, transform 140ms ease;
+    }
+
+    .primary-button:hover {
+      background: #6B2FD6;
+    }
+
+    .primary-button:active {
+      transform: translateY(1px);
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--yellow);
+      outline-offset: 3px;
+    }
+
+    .screen--safari,
+    .screen--android {
+      gap: 22px;
+    }
+
+    .screen--safari .small-note {
+      font-size: 14px;
+    }
+
+    .screen--android .supporting-copy {
+      max-width: 360px;
+    }
+
+    .screen--android .copy-control {
+      gap: 8px;
+    }
+
+    .short-url {
+      color: var(--muted);
+      font: 600 14px/1.3 "Figtree", sans-serif;
+    }
+
+    .screen--desktop {
+      gap: 16px;
+      padding-top: 48px;
+    }
+
+    .qr-frame {
+      display: grid;
+      width: 200px;
+      height: 200px;
+      flex: 0 0 auto;
+      place-items: center;
+      padding: 11px;
+      overflow: hidden;
+      border: 1px solid var(--deep-purple);
+      border-radius: 16px;
+      background: #fff;
+    }
+
+    .qr-frame svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .qr-caption {
+      color: var(--muted);
+      font: 600 14px/1.3 "Figtree", sans-serif;
+    }
+
+    .screen--desktop .small-note {
+      font-size: 14px;
+    }
+
+    .wave {
+      position: fixed;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 0;
+      width: 100%;
+      height: 112px;
+      pointer-events: none;
+    }
+
+    .noscript-screen {
+      display: flex;
+      width: min(100%, 440px);
+      min-height: 100svh;
+      margin: 0 auto;
+      padding: 72px 24px calc(24px + env(safe-area-inset-bottom));
+      position: relative;
+      z-index: 1;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+      text-align: center;
+    }
+
+    @media (max-width: 360px) {
+      .screen,
+      .noscript-screen {
+        padding-top: 64px;
+      }
+
+      .screen--desktop {
+        padding-top: 40px;
+      }
+
+      .screen--inapp-ios h1 {
+        font-size: 32px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <script>
+    const APP_STORE_URL = "https://apps.apple.com/app/id6755642211";
+    const CLEAN_URL = "https://zingomusic.com/tiktok";
+    const ua = navigator.userAgent;
+    const isIOS = /iPhone|iPad|iPod/.test(ua) || (ua.includes("Macintosh") && navigator.maxTouchPoints > 1);
+    const platform = isIOS ? "ios" : ua.includes("Android") ? "android" : "desktop";
+    const knownInApp = /(TikTok|musical_ly|BytedanceWebview|ByteLocale|trill|Instagram|FBAN|FBAV|FB_IAB|Snapchat|Line\/)/i.test(ua);
+    const inAppBrowser = knownInApp || (platform === "ios" && !ua.includes("Safari/"));
+    const testStates = new Set(["inapp-ios", "android", "desktop", "safari"]);
+    const stateOverride = new URLSearchParams(window.location.search).get("state");
+    const hasTestingOverride = testStates.has(stateOverride);
+    const state = hasTestingOverride
+      ? stateOverride
+      : platform === "ios"
+        ? inAppBrowser ? "inapp-ios" : "safari"
+        : platform === "android"
+          ? "android"
+          : "desktop";
+
+    document.body.dataset.state = state;
+
+    if (!hasTestingOverride && platform === "ios" && state === "safari") {
+      window.location.replace(APP_STORE_URL);
+    }
+  </script>
+  <main>
+    <section id="inapp-ios" class="screen screen--inapp-ios" aria-labelledby="inapp-title">
+      <img class="logo" src="/assets/logo.png" alt="Zingo">
+      <h1 id="inapp-title">To install Zingo</h1>
+      <p class="subtitle">TikTok blocks App Store links.</p>
+      <div class="steps-card">
+        <ol class="steps">
+          <li>
+            <span class="step-number" aria-hidden="true">1</span>
+            <span class="step-copy">Tap &bull;&bull;&bull; top right</span>
+          </li>
+          <li>
+            <span class="step-number" aria-hidden="true">2</span>
+            <span class="step-copy">Tap <mark>Open in browser</mark> or <mark>Open in Safari</mark></span>
+          </li>
+        </ol>
+      </div>
+      <div class="copy-control copy-control--pinned">
+        <button class="copy-link" type="button" data-copy-link data-label="Or copy the link">Or copy the link</button>
+        <input class="copy-fallback" type="text" readonly aria-label="Zingo page link" hidden>
+      </div>
+    </section>
+
+    <section id="safari" class="screen screen--safari" aria-labelledby="safari-title">
+      <img class="logo" src="/assets/logo.png" alt="Zingo">
+      <h1 id="safari-title" class="state-heading">Taking you to the App Store</h1>
+      <a class="primary-button" href="https://apps.apple.com/app/id6755642211">Open in the App Store</a>
+      <p class="small-note">Not redirecting? Tap the button above.</p>
+    </section>
+
+    <section id="android" class="screen screen--android" aria-labelledby="android-title">
+      <img class="logo" src="/assets/logo.png" alt="Zingo">
+      <h1 id="android-title" class="state-heading">Zingo is on iPhone and iPad for now</h1>
+      <p class="supporting-copy">Android is on the roadmap. For now, send the link to an iPhone or iPad.</p>
+      <div class="copy-control">
+        <button class="primary-button" type="button" data-copy-link data-label="Copy link">Copy link</button>
+        <input class="copy-fallback" type="text" readonly aria-label="Zingo page link" hidden>
+      </div>
+      <p class="short-url">zingomusic.com/tiktok</p>
+      <!-- A waitlist button can go here later. -->
+    </section>
+
+    <section id="desktop" class="screen screen--desktop" aria-labelledby="desktop-title">
+      <img class="logo" src="/assets/logo.png" alt="Zingo">
+      <h1 id="desktop-title" class="state-heading">Get Zingo on your iPhone or iPad</h1>
+      <div class="qr-frame">
+        <svg xmlns="http://www.w3.org/2000/svg" width="176" height="176" viewBox="0 0 33 33" shape-rendering="crispEdges" role="img" aria-label="QR code linking to the Zingo app page">
+          <path fill="#FFFFFF" d="M0 0h33v33H0z"/>
+          <path stroke="#231C33" d="M4 4.5h7m1 0h2m1 0h1m1 0h2m3 0h7M4 5.5h1m5 0h1m1 0h1m1 0h3m1 0h1m1 0h1m1 0h1m5 0h1M4 6.5h1m1 0h3m1 0h1m1 0h3m1 0h5m1 0h1m1 0h3m1 0h1M4 7.5h1m1 0h3m1 0h1m4 0h1m1 0h4m1 0h1m1 0h3m1 0h1M4 8.5h1m1 0h3m1 0h1m1 0h2m1 0h1m1 0h2m1 0h1m1 0h1m1 0h3m1 0h1M4 9.5h1m5 0h1m3 0h1m1 0h3m3 0h1m5 0h1M4 10.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M17 11.5h3M4 12.5h1m2 0h10m1 0h2m1 0h1m2 0h1m1 0h3M9 13.5h1m1 0h1m2 0h3m1 0h2m3 0h5M5 14.5h4m1 0h1m1 0h2m1 0h1m1 0h5m3 0h1m2 0h1M6 15.5h1m2 0h1m4 0h1m3 0h1m3 0h1m1 0h5M4 16.5h1m2 0h1m1 0h5m1 0h2m2 0h1m2 0h1m5 0h1M4 17.5h1m2 0h1m3 0h4m1 0h1m1 0h3m3 0h1m2 0h1M4 18.5h2m1 0h2m1 0h3m3 0h1m1 0h2m1 0h1m2 0h5M4 19.5h1m3 0h2m1 0h1m1 0h2m1 0h1m6 0h1m1 0h2m1 0h1M4 20.5h1m1 0h2m2 0h1m2 0h3m1 0h1m2 0h5m1 0h2M12 21.5h1m4 0h1m2 0h1m3 0h1m1 0h2M4 22.5h7m1 0h1m1 0h4m2 0h1m1 0h1m1 0h1m3 0h1M4 23.5h1m5 0h1m1 0h2m2 0h2m1 0h2m3 0h1M4 24.5h1m1 0h3m1 0h1m1 0h3m4 0h6M4 25.5h1m1 0h3m1 0h1m1 0h4m1 0h3m1 0h2m4 0h2M4 26.5h1m1 0h3m1 0h1m3 0h2m1 0h1m2 0h2m2 0h5M4 27.5h1m5 0h1m4 0h2m1 0h1m3 0h3m1 0h3M4 28.5h7m1 0h1m1 0h3m3 0h1m4 0h1m2 0h1"/>
+        </svg>
+      </div>
+      <p class="qr-caption">Scan with your phone's camera.</p>
+      <a class="primary-button" href="https://apps.apple.com/app/id6755642211">Open in the App Store</a>
+      <p class="small-note">Also available on the Mac App Store.</p>
+    </section>
+  </main>
+
+  <svg class="wave" viewBox="0 0 1440 112" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0 60C180 95 280 28 470 47s260 75 454 49 342-82 516-52v68H0z" fill="#3B2A63" opacity=".14"/>
+    <path d="M0 78c189-48 287-10 473 2s304 11 472-28 322-19 495 10v50H0z" fill="#7C3AED" opacity=".18"/>
+  </svg>
+
+  <noscript>
+    <div class="noscript-screen">
+      <img class="logo" src="/assets/logo.png" alt="Zingo">
+      <a class="primary-button" href="https://apps.apple.com/app/id6755642211">Open in the App Store</a>
+    </div>
+  </noscript>
+
+  <script>
+    document.querySelectorAll("[data-copy-link]").forEach((button) => {
+      button.addEventListener("click", async () => {
+        const fallbackInput = button.parentElement.querySelector(".copy-fallback");
+
+        try {
+          await navigator.clipboard.writeText(CLEAN_URL);
+          fallbackInput.hidden = true;
+          button.textContent = "Copied";
+          window.clearTimeout(button.resetTimer);
+          button.resetTimer = window.setTimeout(() => {
+            button.textContent = button.dataset.label;
+          }, 2000);
+        } catch {
+          fallbackInput.value = CLEAN_URL;
+          fallbackInput.hidden = false;
+          fallbackInput.focus();
+          fallbackInput.select();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
